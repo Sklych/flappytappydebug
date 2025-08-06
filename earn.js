@@ -85,7 +85,7 @@ function showToast(html, duration = 3000) {
     }, duration);
 }
 
-function showContent(state, tonConnectUI) {
+function showContent(state, tonConnectUI, initData) {
     const playSpan = document.getElementById("play_nav_item");
     const tasksSpan = document.getElementById("tasks_nav_item");
     const leadersSpan = document.getElementById("leaders_nav_item");
@@ -106,7 +106,7 @@ function showContent(state, tonConnectUI) {
     animateBackground("content-background-stars");
 
     const coefficientBtn = document.getElementById("coefficient-menu-item");
-    if (state.reward.coefficient == state.reward.maxCoefficient) {
+    if (state.reward.coefficient >= state.reward.maxCoefficient) {
         coefficientBtn.classList.add("gold");
     }
     const usdtBtn = document.getElementById("usdt-menu-item");
@@ -145,9 +145,9 @@ function showContent(state, tonConnectUI) {
                 (async () => {
                     try {
                         if (!isDebug) {
-                            await postTaskComplete(state.uid, task.id);
+                            await postTaskComplete(state.uid, task.id, initData);
                         } else {
-                            await postTaskComplete("1", task.id);
+                            await postTaskComplete("1", task.id, initData);
                         }
                         setTimeout(() => {
                             window.location.reload();
@@ -162,9 +162,9 @@ function showContent(state, tonConnectUI) {
                 (async () => {
                     try {
                         if (!isDebug) {
-                            await postTaskComplete(state.uid, task.id);
+                            await postTaskComplete(state.uid, task.id, initData);
                         } else {
-                            await postTaskComplete("1", task.id);
+                            await postTaskComplete("1", task.id, initData);
                         }
                         setTimeout(() => {
                             window.location.reload();
@@ -181,9 +181,9 @@ function showContent(state, tonConnectUI) {
                 (async () => {
                     try {
                         if (!isDebug) {
-                            await postTaskComplete(state.uid, task.id);
+                            await postTaskComplete(state.uid, task.id, initData);
                         } else {
-                            await postTaskComplete("1", task.id);
+                            await postTaskComplete("1", task.id, initData);
                         }
                         setTimeout(() => {
                             window.location.reload();
@@ -201,9 +201,9 @@ function showContent(state, tonConnectUI) {
                             console.log("sendTransaction = true")
                             try {
                                 if (!isDebug) {
-                                    await postTaskComplete(state.uid, task.id);
+                                    await postTaskComplete(state.uid, task.id, initData);
                                 } else {
-                                    await postTaskComplete("1", task.id);
+                                    await postTaskComplete("1", task.id, initData);
                                 }
                                 setTimeout(() => {
                                     window.location.reload();
@@ -289,13 +289,14 @@ window.onload = function () {
                 const ref = tg.initDataUnsafe.start_param;
                 const meta = `username=${tg.initDataUnsafe.user.username}, first_name=${tg.initDataUnsafe.user.first_name}, last_name=${tg.initDataUnsafe.user.last_name}`;
                 const page = "tasksPage";
+                const initData = tg.initData;
                 const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
                     manifestUrl: 'https://sklych.github.io/door/tonconnect-manifest.json',
                     language: language,
                 });
-                const user_state = await getUserState(user.id, language ?? 'en', ref, meta, page);
+                const user_state = await getUserState(user.id, language ?? 'en', ref, meta, page, initData);
                 if (user_state) {
-                    showContent(user_state, tonConnectUI);
+                    showContent(user_state, tonConnectUI, initData);
                 } else {
                     showError(language);
                 }
@@ -309,9 +310,10 @@ window.onload = function () {
                 const ref = null;
                 const meta = null;
                 const page = "tasksPage";
-                const user_state = await getUserState(uid, language, ref, meta, page);
+                const initData = null;
+                const user_state = await getUserState(uid, language, ref, meta, page, initData);
                 if (user_state) {
-                    showContent(user_state, tonConnectUI);
+                    showContent(user_state, tonConnectUI, initData);
                 } else {
                     showError(language);
                 }

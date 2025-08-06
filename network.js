@@ -24,13 +24,13 @@ export class UserState {
     }
   }
 
-export async function getUserState(uid, language, ref, meta, page) {
+export async function getUserState(uid, language, ref, meta, page, initData) {
     if (!uid) {
       console.error("getConfig: uid is required");
       return null;
     }
   
-    const params = new URLSearchParams({ uid, language });
+    const params = new URLSearchParams({ uid, language, initData });
     if (ref) params.append('ref', ref);
     if (meta) params.append('meta', meta);
     if (page) params.append('page', page);
@@ -51,15 +51,15 @@ export async function getUserState(uid, language, ref, meta, page) {
     }
   }
 
-export async function updateUserState(uid, score_best, balance_value) {
+export async function updateUserState(uid, score_best, balance_value, initData) {
   if (!uid) {
     console.error("updateUserState: uid is required");
     return null;
   }
   const body = { score_best, balance: { value: balance_value } };
-
+  const params = new URLSearchParams({ uid, initData });
   try {
-    const res = await fetch(`${BASE_URL}/config?uid=${encodeURIComponent(uid)}`, {
+    const res = await fetch(`${BASE_URL}/config?${params.toString()}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
@@ -76,7 +76,7 @@ export async function updateUserState(uid, score_best, balance_value) {
   }
 }
 
-export async function postTransaction(uid, tg_user_name, amount, wallet_info) {
+export async function postTransaction(uid, tg_user_name, amount, wallet_info, initData) {
   if (!uid) {
     console.error("postTransaction: uid is required");
     return null;
@@ -91,9 +91,9 @@ export async function postTransaction(uid, tg_user_name, amount, wallet_info) {
   }
 
   const body = { tg_user_name, amount, wallet_info };
-
+  const params = new URLSearchParams({ uid, initData });
   try {
-    const res = await fetch(`${BASE_URL}/transaction?uid=${encodeURIComponent(uid)}`, {
+    const res = await fetch(`${BASE_URL}/transaction?${params.toString()}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
@@ -112,7 +112,7 @@ export async function postTransaction(uid, tg_user_name, amount, wallet_info) {
   }
 }
 
-export async function postTaskComplete(uid, task_id) {
+export async function postTaskComplete(uid, task_id, initData) {
   if (!uid) {
     console.error("postTaskComplete: uid is required");
     return null;
@@ -122,7 +122,7 @@ export async function postTaskComplete(uid, task_id) {
     return null;
   }
 
-  const params = new URLSearchParams({ uid, task_id });
+  const params = new URLSearchParams({ uid, task_id, initData});
 
   try {
     const res = await fetch(`${BASE_URL}/task/complete?${params.toString()}`, { method: 'POST' });

@@ -158,6 +158,9 @@ function animateBackground(id) {
     
     const coefficientBtn = document.getElementById("coefficient-menu-item");
     const usdtBtn = document.getElementById("usdt-menu-item");
+    if (state.reward.coefficient >= state.reward.maxCoefficient) {
+      coefficientBtn.classList.add("gold");
+    }
     coefficientBtn.addEventListener('click', () => {
         document.getElementById("earn-nav-item").click();
     });
@@ -246,7 +249,8 @@ function animateBackground(id) {
           const ref = tg.initDataUnsafe.start_param;
           const meta = `username=${tg.initDataUnsafe.user.username}, first_name=${tg.initDataUnsafe.user.first_name}, last_name=${tg.initDataUnsafe.user.last_name}`;
           const page = "leaderBoardPage";
-          const user_state = await getUserState(user.id, language ?? 'en', ref, meta, page);
+          const initData = tg.initData;
+          const user_state = await getUserState(user.id, language ?? 'en', ref, meta, page, initData);
           if (user_state) {
             showContent(user_state);
           } else {
@@ -258,7 +262,8 @@ function animateBackground(id) {
           const ref = null;
           const meta = null;
           const page = "leaderBoardPage";
-          const user_state = await getUserState(uid, language, ref, meta, page);
+          const initData = null;
+          const user_state = await getUserState(uid, language, ref, meta, page, initData);
           if (user_state) {
             showContent(user_state);
           } else {

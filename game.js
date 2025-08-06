@@ -40,7 +40,7 @@ function animateBackground(id) {
   animateStars();
 }
 
-function showContent(user_state) {
+function showContent(user_state, language, initData) {
     const playSpan = document.getElementById("play_nav_item");
     const tasksSpan = document.getElementById("tasks_nav_item");
     const leadersSpan = document.getElementById("leaders_nav_item");
@@ -61,7 +61,7 @@ function showContent(user_state) {
   animateText(0.0, user_state.reward.coefficient, "coefficient-text", " X")
       
   const coefficientBtn = document.getElementById("coefficient-menu-item");
-  if (user_state.reward.coefficient == user_state.reward.maxCoefficient) {
+  if (user_state.reward.coefficient >= user_state.reward.maxCoefficient) {
     coefficientBtn.classList.add("gold");
   }
   
@@ -372,7 +372,7 @@ const UI = {
           if (this.score.curr > user_state.score.best) {
             user_state.score.best = this.score.curr
           }
-          uploadState(user_state);
+          uploadState(user_state, language, initData);
         }
         break;
     }
@@ -410,9 +410,11 @@ const UI = {
   },
 };
 
-function uploadState(user_state) {
+function uploadState(user_state, language, initData) {
   (async () => {
-    await updateUserState(user_state.uid, user_state.score.best, user_state.balance.value);
+    if (!await updateUserState(user_state.uid, user_state.score.best, user_state.balance.value, initData)) {
+        showError(language);
+    }
   })();
 }
 
@@ -644,13 +646,14 @@ window.onload = function() {
         const ref = tg.initDataUnsafe.start_param;
         const meta = `username=${tg.initDataUnsafe.user.username}, first_name=${tg.initDataUnsafe.user.first_name}, last_name=${tg.initDataUnsafe.user.last_name}`;
         const page = "gamePage";
+        const initData = tg.initData;
         console.log(tg.initDataUnsafe);
         console.log("READ user ", user);
         console.log("READ ref ", ref);
         console.log("READ language code ", language);
-        const user_state = await getUserState(user.id, language ?? 'en', ref, meta, page);
+        const user_state = await getUserState(user.id, language ?? 'en', ref, meta, page, initData);
         if (user_state) {
-          showContent(user_state);
+          showContent(user_state, language, initData);
         } else {
           showError(language);
         }
@@ -660,9 +663,10 @@ window.onload = function() {
         const ref = null;
         const meta = null;
         const page = "gamePage";
-        const user_state = await getUserState(uid, language, ref, meta, page);
+        const initData = null;
+        const user_state = await getUserState(uid, language, ref, meta, page, initData);
         if (user_state) {
-          showContent(user_state);
+          showContent(user_state, language, initData);
         } else {
           showError(language);
         }

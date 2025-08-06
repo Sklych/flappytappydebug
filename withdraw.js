@@ -41,7 +41,7 @@ function animateBackground(id) {
   animateStars();
 }
 
-function showContent(state, tonConnectUI, user) {
+function showContent(state, tonConnectUI, user, initData) {
     const playSpan = document.getElementById("play_nav_item");
     const tasksSpan = document.getElementById("tasks_nav_item");
     const leadersSpan = document.getElementById("leaders_nav_item");
@@ -61,7 +61,7 @@ function showContent(state, tonConnectUI, user) {
   animateBackground("content-background-stars")
   
   const coefficientBtn = document.getElementById("coefficient-menu-item");
-  if (state.reward.coefficient == state.reward.maxCoefficient) {
+  if (state.reward.coefficient >= state.reward.maxCoefficient) {
     coefficientBtn.classList.add("gold");
   }
 const usdtBtn = document.getElementById("usdt-menu-item");
@@ -92,7 +92,7 @@ usdtBtn.addEventListener('click', () => {
                 
                 const amount = expectedAmountToWithDraw;
                 const wallet_info = tonConnectUI.wallet.account;
-                const actualAmountToWithDraw = (await postTransaction(uid, tg_user_name, amount, wallet_info)).withDrawAmount;
+                const actualAmountToWithDraw = (await postTransaction(uid, tg_user_name, amount, wallet_info, initData)).withDrawAmount;
                 state.balance.value -= actualAmountToWithDraw;
                 animateText(0.0, state.balance.value, "usdt-text", "", state.balance.precision)
                 usdtButton.textContent = `Вывести ${state.balance.value.toFixed(state.balance.precision)} USDT`
@@ -222,13 +222,14 @@ window.onload = function() {
         const ref = tg.initDataUnsafe.start_param;
         const meta = `username=${tg.initDataUnsafe.user.username}, first_name=${tg.initDataUnsafe.user.first_name}, last_name=${tg.initDataUnsafe.user.last_name}`;
         const page = "withDrawPage";
+        const initData = tg.initData;
         const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
           manifestUrl: 'https://sklych.github.io/door/tonconnect-manifest.json',
           language: language,
         });
-        const user_state = await getUserState(user.id, language, ref, meta, page);
+        const user_state = await getUserState(user.id, language, ref, meta, page, initData);
         if (user_state) {
-          showContent(user_state, tonConnectUI, user);
+          showContent(user_state, tonConnectUI, user, initData);
         } else {
           showError(language);
         }
@@ -242,9 +243,11 @@ window.onload = function() {
         const ref = null;
         const meta = null;
         const page = "withDrawPage";
-        const user_state = await getUserState(uid, language, ref, meta, page);
+        const initData = null;
+	const user = null;
+        const user_state = await getUserState(uid, language, ref, meta, page, initData);
         if (user_state) {
-          showContent(user_state, tonConnectUI);
+          showContent(user_state, tonConnectUI, user, initData);
         } else {
           showError(language);
         }
