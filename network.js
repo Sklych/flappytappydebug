@@ -3,8 +3,8 @@ let BASE_URL = 'https://fdsaflsadkjfkljksdakjl.pythonanywhere.com';
 if (isDebug) {
   BASE_URL = 'http://127.0.0.1:5000';
 } else {
-  console.log = function () {};
-  console.error = function() {};
+  // console.log = function () {};
+  // console.error = function() {};
 }
 
 export class UserState {
