@@ -198,9 +198,8 @@ function showContent(state, tonConnectUI, initData) {
                     console.log('click starspopup')
                     try {
                         console.log('click inside async');
-                        console.log(await getactivatexinvoice(state.uid, state.language, initData))
-                        console.log((await getactivatexinvoice(state.uid, state.language, initData)).result)
-                        const invoiceLink = await getactivatexinvoice(state.uid, state.language, initData);
+                        const invoiceLink = (await getactivatexinvoice(state.uid, state.language, initData)).result;
+                        console.log('invoice link url ', invoiceLink);
                         window.Telegram.WebApp.openInvoice(invoiceLink, (status) => {
                             if (status === "cancelled" || status === "failed") {
                                 window.Telegram.WebApp.showAlert(state.tasksPage.popupBalanceTransactionFailed);
