@@ -194,27 +194,35 @@ function showContent(state, tonConnectUI, initData) {
                     }
                 })();
             } else if (task.id.includes("starspopup")) {
-                console.log('click starspopup');
+                showTransactionStatus("click starspopup");
                 (async () => {
-                    console.log('click inside async');
-                    console.log(await getactivatexinvoice(state.uid, state.language, initData))
-                    console.log((await getactivatexinvoice(state.uid, state.language, initData)).result)
-                    // const invoiceLink = await getactivatexinvoice(state.uid, state.language, initData);
-                    // window.Telegram.WebApp.openInvoice(invoiceLink, (status) => {
-                    //     if (status === "cancelled" || status === "failed") {
-                    //         window.Telegram.WebApp.showAlert(state.tasksPage.popupBalanceTransactionFailed);
-                    //     } else {
-                    //         console.log("PAYMENT CONFIRMED!!!")
-                    //         if (!isDebug) {
-                    //             postTaskComplete(state.uid, task.id, initData);
-                    //         } else {
-                    //             postTaskComplete("1", task.id, initData);
-                    //         }
-                    //         setTimeout(() => {
-                    //             window.location.reload();
-                    //         }, 2000);
-                    //     }
-                    // });
+                    try {
+                        showTransactionStatus("inside async");
+                        showTransactionStatus((await getactivatexinvoice(state.uid, state.language, initData)).result);
+                        console.log('click inside async');
+                        console.log(await getactivatexinvoice(state.uid, state.language, initData))
+                        console.log((await getactivatexinvoice(state.uid, state.language, initData)).result)
+                        const invoiceLink = await getactivatexinvoice(state.uid, state.language, initData);
+                        window.Telegram.WebApp.openInvoice(invoiceLink, (status) => {
+                            if (status === "cancelled" || status === "failed") {
+                                window.Telegram.WebApp.showAlert(state.tasksPage.popupBalanceTransactionFailed);
+                            } else {
+                                console.log("PAYMENT CONFIRMED!!!")
+                                if (!isDebug) {
+                                    postTaskComplete(state.uid, task.id, initData);
+                                } else {
+                                    postTaskComplete("1", task.id, initData);
+                                }
+                                setTimeout(() => {
+                                    window.location.reload();
+                                }, 2000);
+                            }
+                        });
+                    }
+                    catch (error) {
+                        console.error(error);
+                    }
+                    
                 })();
             }
             else if (task.id.includes("popup")) {
