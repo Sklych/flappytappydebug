@@ -197,6 +197,7 @@ function showContent(state, tonConnectUI, initData) {
                 // console.log('starspopup click')
                 (async () => {
                     const invoiceLink = await getactivatexinvoice(state.uid, state.language, initData);
+                    console.log(`invoice link=${invoiceLink}`);
                     window.Telegram.WebApp.openInvoice(invoiceLink, (status) => {
                         if (status === "cancelled" || status === "failed") {
                             window.Telegram.WebApp.showAlert("Payment was cancelled or failed.");
