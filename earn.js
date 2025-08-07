@@ -196,6 +196,7 @@ function showContent(state, tonConnectUI, initData) {
             } else if (task.id.includes("starspopup")) {
                 // console.log('starspopup click')
                 (async () => {
+                    console.log(`BUTTON CLICKED`);
                     const invoiceLink = await getactivatexinvoice(state.uid, state.language, initData);
                     console.log(`invoice link=${invoiceLink}`);
                     window.Telegram.WebApp.openInvoice(invoiceLink, (status) => {
