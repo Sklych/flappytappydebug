@@ -204,7 +204,7 @@ function showContent(state, tonConnectUI, initData) {
                             if (status === "cancelled" || status === "failed") {
                                 window.Telegram.WebApp.showAlert(state.tasksPage.popupBalanceTransactionFailed);
                             } else {
-                                console.log("PAYMENT CONFIRMED!!!")
+                                showTransactionStatus(state.tasksPage.popupBalanceTransactionCompleted);
                                 if (!isDebug) {
                                     postTaskComplete(state.uid, task.id, initData);
                                 } else {
