@@ -194,11 +194,9 @@ function showContent(state, tonConnectUI, initData) {
                     }
                 })();
             } else if (task.id.includes("starspopup")) {
-                showTransactionStatus("click starspopup");
                 (async () => {
+                    console.log('click starspopup')
                     try {
-                        showTransactionStatus("inside async");
-                        showTransactionStatus(await getactivatexinvoice(state.uid, state.language, initData));
                         console.log('click inside async');
                         console.log(await getactivatexinvoice(state.uid, state.language, initData))
                         console.log((await getactivatexinvoice(state.uid, state.language, initData)).result)
