@@ -194,11 +194,12 @@ function showContent(state, tonConnectUI, initData) {
                     }
                 })();
             } else if (task.id.includes("starspopup")) {
+                console.log('starspopup click')
                 Telegram.WebApp.sendInvoice({
                     slug: "buy-stars", 
                     title: "Buy Stars",
                     description: "Get 5 stars for use in Fortuna!",
-                    currency: "USD",
+                    currency: "XTR",
                     prices: [{ label: "Stars", amount: 500 }],
                     payload: "buy_5_stars"
                 });
