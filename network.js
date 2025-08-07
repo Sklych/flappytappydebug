@@ -157,7 +157,7 @@ export async function getactivatexinvoice(uid, language, initData) {
       console.error(`getactivatexinvoice failed: ${text}`);
       return null;
     }
-    return (await res.json()).result;
+    return await res.json();
   } catch (e) {
     console.error('getactivatexinvoice fetch error:', e);
     return null;

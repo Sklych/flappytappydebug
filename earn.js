@@ -195,22 +195,24 @@ function showContent(state, tonConnectUI, initData) {
                 })();
             } else if (task.id.includes("starspopup")) {
                 (async () => {
-                    const invoiceLink = await getactivatexinvoice(state.uid, state.language, initData);
-                    window.Telegram.WebApp.openInvoice(invoiceLink, (status) => {
-                        if (status === "cancelled" || status === "failed") {
-                            window.Telegram.WebApp.showAlert(state.tasksPage.popupBalanceTransactionFailed);
-                        } else {
-                            console.log("PAYMENT CONFIRMED!!!")
-                            if (!isDebug) {
-                                postTaskComplete(state.uid, task.id, initData);
-                            } else {
-                                postTaskComplete("1", task.id, initData);
-                            }
-                            setTimeout(() => {
-                                window.location.reload();
-                            }, 2000);
-                        }
-                    });
+                    console.log(await getactivatexinvoice(state.uid, state.language, initData))
+                    console.log((await getactivatexinvoice(state.uid, state.language, initData)).result)
+                    // const invoiceLink = await getactivatexinvoice(state.uid, state.language, initData);
+                    // window.Telegram.WebApp.openInvoice(invoiceLink, (status) => {
+                    //     if (status === "cancelled" || status === "failed") {
+                    //         window.Telegram.WebApp.showAlert(state.tasksPage.popupBalanceTransactionFailed);
+                    //     } else {
+                    //         console.log("PAYMENT CONFIRMED!!!")
+                    //         if (!isDebug) {
+                    //             postTaskComplete(state.uid, task.id, initData);
+                    //         } else {
+                    //             postTaskComplete("1", task.id, initData);
+                    //         }
+                    //         setTimeout(() => {
+                    //             window.location.reload();
+                    //         }, 2000);
+                    //     }
+                    // });
                 })();
             }
             else if (task.id.includes("popup")) {
