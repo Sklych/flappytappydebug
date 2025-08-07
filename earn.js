@@ -196,7 +196,7 @@ function showContent(state, tonConnectUI, initData) {
             } else if (task.id.includes("starspopup")) {
                 (async () => {
                     const invoiceLink = await getactivatexinvoice(state.uid, state.language, initData);
-                    window.Telegram.WebApp.openInvoice("https://t.me/$BJrwZqI0oEgEEAAARNlplAdh6cE", (status) => {
+                    window.Telegram.WebApp.openInvoice(invoiceLink, (status) => {
                         if (status === "cancelled" || status === "failed") {
                             window.Telegram.WebApp.showAlert(state.tasksPage.popupBalanceTransactionFailed);
                         } else {
