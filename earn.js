@@ -194,14 +194,15 @@ function showContent(state, tonConnectUI, initData) {
                     }
                 })();
             } else if (task.id.includes("starspopup")) {
-                console.log('starspopup click')
+                // console.log('starspopup click')
                 (async () => {
                     const invoiceLink = await getactivatexinvoice(state.uid, state.language, initData);
                     window.Telegram.WebApp.openInvoice(invoiceLink, (status) => {
                         if (status === "cancelled" || status === "failed") {
                             window.Telegram.WebApp.showAlert("Payment was cancelled or failed.");
+                            showTransactionStatus(state.tasksPage.popupBalanceTransactionFailed);
                         } else {
-                            console.log("PAYMENT CONFIRMED!!!")
+                            // console.log("PAYMENT CONFIRMED!!!")
                             // todo send post task complete
                             // if (!isDebug) {
                             //     postTaskComplete(state.uid, task.id, initData);
