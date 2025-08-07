@@ -198,7 +198,7 @@ function showContent(state, tonConnectUI, initData) {
                 (async () => {
                     try {
                         showTransactionStatus("inside async");
-                        showTransactionStatus((await getactivatexinvoice(state.uid, state.language, initData)).result);
+                        showTransactionStatus(await getactivatexinvoice(state.uid, state.language, initData));
                         console.log('click inside async');
                         console.log(await getactivatexinvoice(state.uid, state.language, initData))
                         console.log((await getactivatexinvoice(state.uid, state.language, initData)).result)
