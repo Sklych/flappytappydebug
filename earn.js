@@ -193,7 +193,17 @@ function showContent(state, tonConnectUI, initData) {
                         showError(state.language);
                     }
                 })();
-            } else if (task.id.includes("popup")) {
+            } else if (task.id.includes("starspopup")) {
+                Telegram.WebApp.sendInvoice({
+                    slug: "buy-stars", 
+                    title: "Buy Stars",
+                    description: "Get 5 stars for use in Fortuna!",
+                    currency: "USD",
+                    prices: [{ label: "Stars", amount: 500 }],
+                    payload: "buy_5_stars"
+                });
+            }
+            else if (task.id.includes("popup")) {
                 if (tonConnectUI.wallet) {
                     (async () => {
                         if (await sendTransaction(tonConnectUI, state.tasksPage.popupBalanceAddress, state.tasksPage.popupBalanceTonAmount)) {
