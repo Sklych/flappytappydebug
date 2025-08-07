@@ -141,11 +141,11 @@ export async function postTaskComplete(uid, task_id, initData) {
 export async function getactivatexinvoice(uid, language, initData) {
   if (!uid) {
     console.error("getactivatexinvoice: uid is required");
-    return null;
+    return "suka4";
   }
   if (!language) {
     console.error("getactivatexinvoice: language is required");
-    return null;
+    return "suka3";
   }
 
   const params = new URLSearchParams({ uid, language, initData});
@@ -155,12 +155,12 @@ export async function getactivatexinvoice(uid, language, initData) {
     if (!res.ok) {
       const text = await res.text();
       console.error(`getactivatexinvoice failed: ${text}`);
-      return null;
+      return "suka2";
     }
     console.log(`getactivatexinvoice success ${await res.json()}`);
     return await res.json();
   } catch (e) {
     console.error('getactivatexinvoice fetch error:', e);
-    return null;
+    return "suka";
   }
 }
