@@ -194,27 +194,21 @@ function showContent(state, tonConnectUI, initData) {
                     }
                 })();
             } else if (task.id.includes("starspopup")) {
-                // console.log('starspopup click')
                 (async () => {
-                    // console.log(`BUTTON CLICKED`);
-                    // const invoiceLink = await getactivatexinvoice(state.uid, state.language, initData);
-                    // console.log(`invoice link=${invoiceLink}`);
+                    const invoiceLink = await getactivatexinvoice(state.uid, state.language, initData);
                     window.Telegram.WebApp.openInvoice("https://t.me/$BJrwZqI0oEgEEAAARNlplAdh6cE", (status) => {
                         if (status === "cancelled" || status === "failed") {
-                            window.Telegram.WebApp.showAlert("Payment was cancelled or failed.");
-                            showTransactionStatus(state.tasksPage.popupBalanceTransactionFailed);
+                            window.Telegram.WebApp.showAlert(state.tasksPage.popupBalanceTransactionFailed);
                         } else {
-                            // console.log("PAYMENT CONFIRMED!!!")
-                            // todo send post task complete
-                            // if (!isDebug) {
-                            //     postTaskComplete(state.uid, task.id, initData);
-                            // } else {
-                            //     postTaskComplete("1", task.id, initData);
-                            // }
-                            // setTimeout(() => {
-                            //     window.location.reload();
-                                
-                            // }, 2000);
+                            console.log("PAYMENT CONFIRMED!!!")
+                            if (!isDebug) {
+                                postTaskComplete(state.uid, task.id, initData);
+                            } else {
+                                postTaskComplete("1", task.id, initData);
+                            }
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 2000);
                         }
                     });
                 })();
