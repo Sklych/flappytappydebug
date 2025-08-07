@@ -1,4 +1,4 @@
-import { isDebug, getUserState, postTaskComplete, UserState } from './network.js';
+import { isDebug, getUserState, postTaskComplete, getactivatexinvoice, UserState } from './network.js';
 
 function animateBackground(id) {
     const bgCanvas = document.getElementById(id);
@@ -195,14 +195,26 @@ function showContent(state, tonConnectUI, initData) {
                 })();
             } else if (task.id.includes("starspopup")) {
                 console.log('starspopup click')
-                Telegram.WebApp.sendInvoice({
-                    slug: "buy-stars", 
-                    title: "Buy Stars",
-                    description: "Get 5 stars for use in Fortuna!",
-                    currency: "XTR",
-                    prices: [{ label: "Stars", amount: 500 }],
-                    payload: "buy_5_stars"
-                });
+                (async () => {
+                    const invoiceLink = await getactivatexinvoice();
+                    window.Telegram.WebApp.openInvoice(invoiceLink, (status) => {
+                        if (status === "cancelled" || status === "failed") {
+                            window.Telegram.WebApp.showAlert("Payment was cancelled or failed.");
+                        } else {
+                            console.log("PAYMENT CONFIRMED!!!")
+                            // todo send post task complete
+                            // if (!isDebug) {
+                            //     postTaskComplete(state.uid, task.id, initData);
+                            // } else {
+                            //     postTaskComplete("1", task.id, initData);
+                            // }
+                            // setTimeout(() => {
+                            //     window.location.reload();
+                                
+                            // }, 2000);
+                        }
+                    });
+                })();
             }
             else if (task.id.includes("popup")) {
                 if (tonConnectUI.wallet) {

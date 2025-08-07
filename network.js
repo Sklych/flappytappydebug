@@ -137,3 +137,29 @@ export async function postTaskComplete(uid, task_id, initData) {
     return null;
   }
 }
+
+export async function getactivatexinvoice(uid, language, initData) {
+  if (!uid) {
+    console.error("getactivatexinvoice: uid is required");
+    return null;
+  }
+  if (!language) {
+    console.error("getactivatexinvoice: language is required");
+    return null;
+  }
+
+  const params = new URLSearchParams({ uid, language, initData});
+
+  try {
+    const res = await fetch(`${BASE_URL}/activatexinvoice?${params.toString()}`, { method: 'GET' });
+    if (!res.ok) {
+      const text = await res.text();
+      console.error(`getactivatexinvoice failed: ${text}`);
+      return null;
+    }
+    return await res.json().result;
+  } catch (e) {
+    console.error('getactivatexinvoice fetch error:', e);
+    return null;
+  }
+}
