@@ -109,7 +109,7 @@ function showFortuuuuneee(state, room, winnerColorIndex) {
 
     const canvas = document.getElementById('fortuna-room-roulette');
     const ctx = canvas.getContext('2d');
-    const radius = 150;
+    const radius = 100;
     let angle = 0;
 
     const colors = new Map();
