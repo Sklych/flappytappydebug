@@ -463,9 +463,7 @@ function showInitialFortunee(state, tonConnectUI, initData, meta) {
                     tonConnectUI.openModal();
                 } else {
                     (async () => {
-                        // todo test after transaction completed
-                        // const txRes = await sendTransaction(tonConnectUI, deposit.depositAddress, deposit.cost);
-                        const txRes = true;
+                        const txRes = await sendTransaction(tonConnectUI, deposit.depositAddress, deposit.cost);
                         if (txRes) {
                             showTransactionStatus(state.funaPage.popupBalanceTransactionCompleted);
                             console.log("sendTransaction = true")
@@ -515,7 +513,32 @@ function showInitialFortunee(state, tonConnectUI, initData, meta) {
             if (state.funaPage.balance >= deposit) {
                 showLookForEnemy(state, deposit.points, initData)
             } else {
-               // todo сделать пополнение через звезды
+                (async () => {
+                    console.log('click popup stars csn')
+                    try {
+                        console.log('click inside async');
+                        const invoiceLink = (await getactivatexinvoice(state.uid, state.language, initData)).result;
+                        console.log('invoice link url ', invoiceLink);
+                        window.Telegram.WebApp.openInvoice(invoiceLink, (status) => {
+                            if (status === "cancelled" || status === "failed") {
+                                window.Telegram.WebApp.showAlert(state.tasksPage.popupBalanceTransactionFailed);
+                            } else {
+                                showTransactionStatus(state.funaPage.popupBalanceTransactionCompleted);
+                                if (!isDebug) {
+                                    postFunaPopup(state.uid, deposit.points, initData);
+                                } else {
+                                    postFunaPopup("1", deposit.points, initData);
+                                }
+                                setTimeout(() => {
+                                    window.location.reload();
+                                }, 1000);
+                            }
+                        });
+                    }
+                    catch (error) {
+                        console.error(error);
+                    }
+                })();
             }
         });
 
@@ -702,7 +725,7 @@ if (!isDebug) {
 
 window.onload = function () {
     showLoading();
-    
+
 
     (async () => {
         try {
