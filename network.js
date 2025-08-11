@@ -4,7 +4,7 @@ const prod = "https://flsdfl.pythonanywhere.com";
 
 const BASE_URL = dev;
 
-export const isDebug = BASE_URL == local || BASE_URL == dev;
+export const isDebug = BASE_URL == local;
 
 export class UserState {
   constructor(data) {
