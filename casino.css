@@ -13,6 +13,7 @@
     justify-content: center;
     /* horizontal center */
     align-items: center;
+    overflow-y: auto; /* allow vertical scroll */
     /* vertical center */
     /* background: #f0f0f0;     optional, just to see canvas better */
     /* background: linear-gradient(to bottom, #87ceeb, #ffffff); Sky blue to white */
@@ -22,7 +23,7 @@
   body {
     margin: 0;
     height: 100vh;
-    overflow: hidden;
+    overflow: auto;
     display: flex;
     justify-content: center;
     align-items: center;
