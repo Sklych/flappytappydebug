@@ -41,15 +41,17 @@ function animateBackground(id) {
 }
 
 function showContent(user_state, language, initData) {
-    const playSpan = document.getElementById("play_nav_item");
-    const tasksSpan = document.getElementById("tasks_nav_item");
-    const leadersSpan = document.getElementById("leaders_nav_item");
-    const cashoutSpan = document.getElementById("cash_out_nav_item");
-  
-    playSpan.textContent = user_state.bottombar.playItem.title;
-    tasksSpan.textContent = user_state.bottombar.tasksItem.title;
-    leadersSpan.textContent = user_state.bottombar.leadersItem.title;
-    cashoutSpan.textContent = user_state.bottombar.withdrawItem.title;
+  const playSpan = document.getElementById("play_nav_item");
+  const tasksSpan = document.getElementById("tasks_nav_item");
+  const leadersSpan = document.getElementById("leaders_nav_item");
+  const cashoutSpan = document.getElementById("cash_out_nav_item");
+  const casinoSpan = document.getElementById("casino_nav_item");
+
+  playSpan.textContent = user_state.bottombar.playItem.title;
+  tasksSpan.textContent = user_state.bottombar.tasksItem.title;
+  leadersSpan.textContent = user_state.bottombar.leadersItem.title;
+  cashoutSpan.textContent = user_state.bottombar.withdrawItem.title;
+  casinoSpan.textContent = user_state.bottombar.funaItem.title;
 
   document.getElementById('progress').style.display = 'none';
   document.getElementById('error-content').style.display = 'none';
@@ -72,6 +74,12 @@ function showContent(user_state, language, initData) {
   usdtBtn.addEventListener('click', () => {
     document.getElementById("withdraw-nav-item").click();
   });
+
+  const casinoBtn = document.getElementById("casino-menu-item");
+    casinoBtn.addEventListener('click', () => {
+        document.getElementById("casino-nav-item").click();
+    });
+    document.getElementById("casino-text").textContent = user_state.funaPage.balance;
 
 const RAD = Math.PI / 180;
 const scrn = document.getElementById("canvas");

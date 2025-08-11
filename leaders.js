@@ -141,11 +141,15 @@ function animateBackground(id) {
   function showContent(state) {
     const playSpan = document.getElementById("play_nav_item");
     const tasksSpan = document.getElementById("tasks_nav_item");
+    const leadersSpan = document.getElementById("leaders_nav_item");
     const cashoutSpan = document.getElementById("cash_out_nav_item");
-  
+    const casinoSpan = document.getElementById("casino_nav_item");
+
     playSpan.textContent = state.bottombar.playItem.title;
     tasksSpan.textContent = state.bottombar.tasksItem.title;
+    leadersSpan.textContent = state.bottombar.leadersItem.title;
     cashoutSpan.textContent = state.bottombar.withdrawItem.title;
+    casinoSpan.textContent = state.bottombar.funaItem.title;
   
     document.getElementById('progress').style.display = 'none';
     document.getElementById('error-content').style.display = 'none';
@@ -167,6 +171,12 @@ function animateBackground(id) {
     usdtBtn.addEventListener('click', () => {
       document.getElementById("withdraw-nav-item").click();
     });
+    
+    const casinoBtn = document.getElementById("casino-menu-item");
+    casinoBtn.addEventListener('click', () => {
+        document.getElementById("casino-nav-item").click();
+    });
+    document.getElementById("casino-text").textContent = state.funaPage.balance;
   
       const container = document.querySelector('.leaders-container');
 
