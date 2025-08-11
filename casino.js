@@ -521,7 +521,7 @@ function showInitialFortunee(state, tonConnectUI, initData, meta) {
                         console.log('invoice link url ', invoiceLink);
                         window.Telegram.WebApp.openInvoice(invoiceLink, (status) => {
                             if (status === "cancelled" || status === "failed") {
-                                window.Telegram.WebApp.showAlert(state.tasksPage.popupBalanceTransactionFailed);
+                                showTransactionStatus(state.funaPage.popupBalanceTransactionFailed);
                             } else {
                                 showTransactionStatus(state.funaPage.popupBalanceTransactionCompleted);
                                 if (!isDebug) {
