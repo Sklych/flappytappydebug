@@ -510,7 +510,7 @@ function showInitialFortunee(state, tonConnectUI, initData, meta) {
         // `Start ${deposit} or  `Deposit ${deposit} `;
         btn.textContent = deposit.text;
         btn.addEventListener('click', () => {
-            if (state.funaPage.balance >= deposit) {
+            if (state.funaPage.balance >= deposit.points) {
                 showLookForEnemy(state, deposit.points, initData)
             } else {
                 (async () => {
