@@ -1,4 +1,4 @@
-import { isDebug, getUserState, postFunaPopup, postFunaCreate, postFunaCancel, getFunaOutcome, postFunaCashout, UserState } from './network.js';
+import { isDebug, getUserState, postFunaPopup, postFunaCreate, postFunaCancel, getFunaOutcome, postFunaCashout, getactivatexinvoice, UserState } from './network.js';
 
 function animateText(from, to, textId) {
     const element = document.getElementById(textId);
