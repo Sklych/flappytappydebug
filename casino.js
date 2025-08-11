@@ -511,7 +511,7 @@ function showInitialFortunee(state, tonConnectUI, initData, meta) {
         btn.textContent = deposit.text;
         btn.addEventListener('click', () => {
             if (state.funaPage.balance >= deposit.points) {
-                showLookForEnemy(state, deposit.points, initData)
+                showLookForEnemy(state, deposit.points, initData, meta)
             } else {
                 (async () => {
                     console.log('click popup stars csn')
