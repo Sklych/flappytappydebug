@@ -435,7 +435,7 @@ function showInitialFortunee(state, tonConnectUI, initData, meta) {
                         showTransactionStatus(state.funaPage.funaCashoutTransactionCompleted);
                         setTimeout(() => {
                             window.location.reload();
-                        }, 2000);
+                        }, 1000);
                     } else {
                         console.log("Funa cashout transaction incompleted")
                     }
@@ -477,7 +477,7 @@ function showInitialFortunee(state, tonConnectUI, initData, meta) {
                                 }
                                 setTimeout(() => {
                                     window.location.reload();
-                                }, 2000);
+                                }, 1000);
                             } catch (err) {
                                 console.error(err);
                                 showError(state.language);
