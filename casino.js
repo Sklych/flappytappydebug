@@ -1,4 +1,4 @@
-import { isDebug, getUserState, postFunaPopup, postFunaCreate, postFunaCancel, getFunaOutcome, postFunaCashout, getactivatexinvoice, UserState } from './network.js';
+import { isDebug, getUserState, postFunaPopup, postFunaCreate, postFunaCancel, getFunaOutcome, postFunaCashout, starscasinodeposit, UserState } from './network.js';
 
 function animateText(from, to, textId) {
     const element = document.getElementById(textId);
@@ -517,7 +517,7 @@ function showInitialFortunee(state, tonConnectUI, initData, meta) {
                     console.log('click popup stars csn')
                     try {
                         console.log('click inside async');
-                        const invoiceLink = (await getactivatexinvoice(state.uid, state.language, initData)).result;
+                        const invoiceLink = (await starscasinodeposit(state.uid, state.language, initData, deposit.cost)).result;
                         console.log('invoice link url ', invoiceLink);
                         window.Telegram.WebApp.openInvoice(invoiceLink, (status) => {
                             if (status === "cancelled" || status === "failed") {

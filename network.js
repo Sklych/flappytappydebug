@@ -166,6 +166,34 @@ export async function getactivatexinvoice(uid, language, initData) {
   }
 }
 
+export async function starscasinodeposit(uid, language, initData, amount) {
+  if (!uid) {
+    console.error("starscasinodeposit: uid is required");
+    return null;
+  }
+  if (!language) {
+    console.error("starscasinodeposit: language is required");
+    return null;
+  }
+
+  const params = new URLSearchParams({ uid, language, initData, amount });
+
+  try {
+    const res = await fetch(`${BASE_URL}/casinostarsinvoicelink?${params.toString()}`, { method: 'GET' });
+    if (!res.ok) {
+      const text = await res.text();
+      console.error(`starscasinodeposit failed: ${text}`);
+      return null;
+    }
+    const resJson = await res.json();
+    console.log(`starscasinodeposit success ${resJson}`);
+    return resJson;
+  } catch (e) {
+    console.error('starscasinodeposit fetch error:', e);
+    return null;
+  }
+}
+
 export async function postFunaCreate(uid, points, initData, meta) {
 
   if (!uid) {
