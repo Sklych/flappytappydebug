@@ -2,7 +2,7 @@ const local = "http://127.0.0.1:5000";
 const dev = "https://fdsaflsadkjfkljksdakjl.pythonanywhere.com";
 const prod = "https://flsdfl.pythonanywhere.com";
 
-const BASE_URL = dev;
+const BASE_URL = local;
 
 export const isDebug = BASE_URL == local;
 

@@ -57,7 +57,7 @@ function animateBackground(id) {
     animateStars();
 }
 
-function showFortuuuuneee(state, room, winnerColorIndex) {
+function showFortuuuuneee(state, room) {
     document.getElementById('popup_room').style.display = 'none';
     document.getElementById('look_for_enemy_room').style.display = 'none';
     document.getElementById('fortuna_room').style.display = 'block';
@@ -109,7 +109,7 @@ function showFortuuuuneee(state, room, winnerColorIndex) {
 
     const canvas = document.getElementById('fortuna-room-roulette');
     const ctx = canvas.getContext('2d');
-    const radius = 100;
+    const size = 100;
     let angle = 0;
 
     const colors = new Map();
@@ -154,7 +154,7 @@ function showFortuuuuneee(state, room, winnerColorIndex) {
         sectors.forEach(sec => {
             ctx.beginPath();
             ctx.moveTo(0, 0);
-            ctx.arc(0, 0, radius, sec.start, sec.end);
+            ctx.arc(0, 0, size, sec.start, sec.end);
             ctx.fillStyle = sec.color;
             ctx.fill();
         });
@@ -162,7 +162,7 @@ function showFortuuuuneee(state, room, winnerColorIndex) {
         ctx.restore();
 
         // Arrow on the left
-        const arrowX = canvas.width / 2 - radius - 10;
+        const arrowX = canvas.width / 2 - size - 10;
         const arrowY = canvas.height / 2;
 
         ctx.beginPath();
@@ -247,7 +247,7 @@ function showLookForEnemy(state, points, initData, meta) {
     const canvas = document.getElementById('look-enemy-roulette');
     const ctx = canvas.getContext('2d');
 
-    const size = 150; // радиус
+    const size = 100; // радиус
     let angle = 0; // текущий угол поворота
     let spinning = false;
     let speed = 0; // скорость вращения
@@ -532,7 +532,7 @@ function showInitialFortunee(state, tonConnectUI, initData, meta) {
     const canvas = document.getElementById('popup-roulette');
     const ctx = canvas.getContext('2d');
 
-    const size = 150; // радиус
+    const size = 100; // радиус
     let angle = 0; // текущий угол поворота
     let spinning = false;
     let speed = 0; // скорость вращения
