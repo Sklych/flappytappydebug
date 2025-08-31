@@ -147,7 +147,15 @@ function showContent(state, tonConnectUI, initData) {
         taskBtn.textContent = task.title;
         taskBtn.addEventListener('click', () => {
             if (task.id == "invite_friend") {
-                window.open(`http://t.me/share/url?url=${state.referral.link}&text=${state.referral.inviteText}`);
+                window.Telegram.WebApp.shareToStory({
+                    media_url: "https://docs.telegram-mini-apps.com/logo.db0268ac.png",
+                    text: "Welcome! $Myphrill",
+                    widget_link: {
+                      url: "https://example.com",
+                      name: "Visit Us",
+                    },
+                  });
+                // window.open(`http://t.me/share/url?url=${state.referral.link}&text=${state.referral.inviteText}`);
             } else if (task.id == "start_main_bot") {
                 window.open(`https://t.me/${state.bot.id}?start=flappytappy`);
                 (async () => {
