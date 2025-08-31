@@ -148,10 +148,10 @@ function showContent(state, tonConnectUI, initData) {
         taskBtn.addEventListener('click', () => {
             if (task.id == "invite_friend") {
                 window.Telegram.WebApp.shareToStory({
-                    media_url: "https://sklych.github.io/ph/assets/shorts_compressed.mp4",
+                    media_url: "https://sklych.github.io/ph/assets/story_image.jpeg",
                     text: "I staked 20 TON and received 22 the next day.",
                     widget_link: {
-                      url: "t.me/myphrill_bot/myphrill",
+                      url: "https://t.me/myphrill_bot/myphrill",
                       name: "Stake TON 💎",
                     },
                   });
