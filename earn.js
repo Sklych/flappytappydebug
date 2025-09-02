@@ -136,28 +136,39 @@ function showContent(state, tonConnectUI, initData) {
     infoText.textContent = state.tasksPage.coefficientInfoText;
     container.appendChild(infoText);
 
+    state.tasks.unshift(
+        {id: 'myphrill_stars', tg_uid: '-1', title: 'Buy Cheap Stars (+ 5.0 X)', reward_coefficient: 0, status: 0}
+    )
+    // state.tasks.unshift(
+    //     {id: 'myphrill_share', tg_uid: '-1', title: 'Invite to Stake App (+ 1.0 X)', reward_coefficient: 0, status: 0}
+    // )
+    // state.tasks.unshift(
+    //     {id: 'myphrill', tg_uid: '-1', title: 'Stake TON and get daily profit (+ 10.0 X)', reward_coefficient: 0, status: 0}
+    // )
+    
+
     for (const task of state.tasks) {
         console.log(task)
         const taskBtn = document.createElement('div');
         taskBtn.className = 'subscribe-bonus';
         if (task.id.includes("popup")) {
             taskBtn.classList.add("gold")
+        } else if (task.id.includes("myphrill")) {
+            taskBtn.classList.add("myphrill")
         }
         taskBtn.id = task.id;
         taskBtn.textContent = task.title;
         taskBtn.addEventListener('click', () => {
-            if (task.id == "invite_friend") {
-                window.Telegram.WebApp.shareToStory({
-                    media_url: "https://sklych.github.io/ph/assets/story_image.jpeg",
-                    params: {
-                        text: "I staked 20 TON and received 22 the next day.",
-                        widget_link: {
-                            url: "https://t.me/myphrill_bot/myphrill",
-                            name: "Stake TON 💎",
-                        },
-                    }
-                  });
-                // window.open(`http://t.me/share/url?url=${state.referral.link}&text=${state.referral.inviteText}`);
+            if (task.id == "myphrill_stars") {
+                window.open(`t.me/StarsovBot?start=r948907300`);
+            } else if (task.id == "myphrill_share") {
+                const inviteLink = `https://t.me/myphrill_bot/myphrill?startapp=${state.uid}`
+                const inviteText = "I staked 20 TON and received 22 TON the next day to my wallet!"
+                window.open(`http://t.me/share/url?url=${inviteLink}&text=${inviteText}`);
+            } else if (task.id == "myphrill") {
+                window.open(`http://t.me/myphrill_bot/myphrill?startapp=fbb`);
+            } else if (task.id == "invite_friend") {
+                window.open(`http://t.me/share/url?url=${state.referral.link}&text=${state.referral.inviteText}`);
             } else if (task.id == "start_main_bot") {
                 window.open(`https://t.me/${state.bot.id}?start=flappytappy`);
                 (async () => {
