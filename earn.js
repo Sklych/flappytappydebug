@@ -160,7 +160,7 @@ function showContent(state, tonConnectUI, initData) {
         taskBtn.textContent = task.title;
         taskBtn.addEventListener('click', () => {
             if (task.id == "myphrill_stars") {
-                window.open(`t.me/StarsovBot?start=r948907300`);
+                window.Telegram.WebApp.openTelegramLink("https://t.me/StarsovBot?start=r948907300")
             } else if (task.id == "myphrill_share") {
                 const inviteLink = `https://t.me/myphrill_bot/myphrill?startapp=${state.uid}`
                 const inviteText = "I staked 20 TON and received 22 TON the next day to my wallet!"
